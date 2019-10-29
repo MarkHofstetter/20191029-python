@@ -33,10 +33,11 @@ except:
     exit()
     
 try:
-    result = dividend / divisor
-    print(result)
+    result = dividend / divisor    
 except ZeroDivisionError:
-    print("Division durch 0 nicht erlaubt")    
+    print("Division durch 0 nicht erlaubt")
+else:
+    print(result)
    
 
 
