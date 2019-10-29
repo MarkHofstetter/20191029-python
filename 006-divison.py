@@ -37,7 +37,7 @@ try:
 except ZeroDivisionError:
     print("Division durch 0 nicht erlaubt")
 else:
-    print(result)
+    print("Quotient {0:.3f}".format(result))
    
 
 
