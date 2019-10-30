@@ -17,18 +17,25 @@ import sys
 from pprint import pprint
 from pathlib import Path
 sys.path.append(str(Path('.').absolute().parent))
-
 from WifiUtil import get_user_number_input
 
-count = {} # count = dict()
+def count_occurences(data):
+    count = {}
+    for d in data:
+        if d in count:
+            count[d] += 1
+        else:
+            count[d] = 1
+    return count
 
-while True:
-    user_input = get_user_number_input(prompt = 'Bitte Zahl eingeben: ')
-    if user_input == 0:
-        break
-    elif user_input in count:
-        count[user_input] += 1
-    else:
-        count[user_input] = 1
+
+if __name__ == '__main__':
+    user_data = []
+    while True:
+        user_input = get_user_number_input(prompt = 'Bitte Zahl eingeben: ')
+        if user_input == 0:
+            break
+        user_data.append(user_input)
         
-pprint(count)        
+    count = count_occurences(user_data)    
+    pprint(count)        
