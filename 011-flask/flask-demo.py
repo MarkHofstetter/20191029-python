@@ -3,6 +3,19 @@ from flask_api import FlaskAPI, status, exceptions
 
 app = FlaskAPI(__name__)
 
+teilnehmer_dict = {
+    'Mark'      : {'yob': 1975, 'fav_col': 'blau', 'edu': ['vs', 'gym', 'uni']},
+    'Herbert'   : {'yob': 1973, 'edu': [ 'vs', 'gym', 'htl', 'uni']},
+    'Stefan'    : {'yob':1976},
+    'Johann'    : {'yob':1987},
+    'Marian'    : {'yob':1980},
+    'Magdalena' : {'yob':1982},
+    'Stefan'    : {'yob':1983},
+    'Kurt'      : {'yob':1995},
+    'Karl'      : {'yob':1960},
+    'Latchezar' : {'yob':1972},
+    }
+
 @app.route("/", methods=['GET'])
 def welcome():
     return {'data': 'Hello World'}
@@ -13,7 +26,10 @@ def demo():
 
 @app.route("/teilnehmer/<string:key>", methods=['GET'])
 def teilnehmer(key):
-    return {'data': key}
+    try:
+        return {'name': key , 'year_of_birth': teilnehmer_dict[key]['yob']}
+    except KeyError:
+        return {'error': 'nothing found'}, 404
 
 
 if __name__ == '__main__':
