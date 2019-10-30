@@ -26,7 +26,7 @@ while True:
     user_input = get_user_number_input(prompt = 'Bitte Zahl eingeben: ')
     if user_input == 0:
         break
-    if user_input in count:
+    elif user_input in count:
         count[user_input] += 1
     else:
         count[user_input] = 1
