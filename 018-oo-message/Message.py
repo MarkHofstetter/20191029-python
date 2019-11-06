@@ -1,4 +1,4 @@
-class Message:
+class Message:    
     __recipient = None
     __content = None
     
@@ -25,9 +25,17 @@ class Message:
     def content(self, content):
         self.__content = content
     
+    def __repr__(self):
+        return "**** To: {:s}, Body: {:s}". \
+                format(self.recipient, self.content)
+    
     
 class SMS(Message):    
     __content = None
+    
+    @staticmethod
+    def at_int_dial():
+        return '+43'
     
     def __init__(self):
         super(SMS, self).__init__()
@@ -41,8 +49,9 @@ class SMS(Message):
     def content(self, content):        
         if len(content) > 5:
             print("Achtung zu lange", content)
-        self.__content = content[:5]
-    
+        Message.content.fset(self, content[:5])            
+        
+        
     
 class Email(Message):
     subject = None
