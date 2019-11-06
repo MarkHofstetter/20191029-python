@@ -9,7 +9,18 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-
+'''
 new_country = Country(name = 'Nambia')
 session.add(new_country)
 session.commit()
+'''
+
+read_country = session.query(Country).filter_by(name='Nambia').first()
+
+new_property = Property(name='bla', value=42, country=read_country)
+session.add(new_property)
+session.commit()
+
+
+print(read_country.name)
+
