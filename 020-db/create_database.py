@@ -5,7 +5,19 @@ from sqlalchemy import create_engine
  
 Base = declarative_base()
 
+class Country(Base):
+    __tablename__ = 'country'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
 
-engine = create_engine('sqlite:///sqlalchemy_energy.db')
+class Property(Base):
+    __tablename__ = 'property'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    value = Column(Float, nullable=False)
+    country_id = Column(Integer, ForeignKey('country.id'))
+    country = relationship(Country)
+
+engine = create_engine('sqlite:///sqlalchemy_oecd.db')
  
 Base.metadata.create_all(engine)
