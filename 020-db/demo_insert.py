@@ -3,6 +3,12 @@ from sqlalchemy.orm import sessionmaker
 
 from Model import Country, Property, Base
 
+import argparse
+
+parser = argparse.ArgumentParser()
+
+
+
 engine = create_engine('sqlite:///sqlalchemy_oecd.db')
 Base.metadata.bind = engine
 

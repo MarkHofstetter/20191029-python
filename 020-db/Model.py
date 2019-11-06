@@ -13,7 +13,7 @@ class Country(Base):
 class Property(Base):
     __tablename__ = 'property'
     id = Column(Integer, primary_key=True)
-    name = Column(String(100), nullable=False)
+    name = Column(String(100), nullable=False, unique=True)
     value = Column(Float, nullable=False)
     country_id = Column(Integer, ForeignKey('country.id'))
     country = relationship(Country)

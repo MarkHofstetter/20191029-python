@@ -4,13 +4,28 @@ from sqlalchemy.orm import sessionmaker
 
 from Model import Country, Property, Base
 
-engine = create_engine('sqlite:///sqlalchemy_oecd.db')
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('-d', '--database',
+  action="store", dest="database",
+  help="sqlite database file")
+
+parser.add_argument('-o', '--oecdfile',
+  action="store", dest="oecdfile",
+  help="oecd file to be parsed")
+
+
+options = parser.parse_args()
+
+engine = create_engine('sqlite:///'+options.database)
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-oecd_data = load_data.load_oecd()
+oecd_data = load_data.load_oecd()    
 
 for country_name, row in oecd_data.iterrows():
     new_country = Country(name = country_name)

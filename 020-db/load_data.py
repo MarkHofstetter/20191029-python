@@ -17,8 +17,8 @@ def load_gdp():
     # print(gdp_data['GDP per capita']['Austria'])
     return gdp_data
     
-def load_oecd():
-    oecd_data = pd.read_csv('oecd_bli_2015.csv', thousands=',')
+def load_oecd(filename = 'oecd_bli_2015.csv'):
+    oecd_data = pd.read_csv(filename, thousands=',')
     oecd_data = oecd_data[oecd_data["INEQUALITY"] == "TOT"]
     oecd_data = oecd_data.pivot(index = "Country", columns ="Indicator", 
                                 values = "Value")    
