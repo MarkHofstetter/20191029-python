@@ -2,29 +2,12 @@ import sys
 from PySide2.QtWidgets import *
 #	import (QApplication, QLabel, QPushButton, QVBoxLayout, QWidget)
 from PySide2.QtCore import *
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from Model import Country, Property, Base
-
-engine = create_engine('sqlite:///sqlalchemy_oecd.db')
-Base.metadata.bind = engine
-
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
-
+import importlib
+data_source = importlib.import_module('data_source') 
     
 class TableModel(QAbstractTableModel):
-    def get_data(self, filter = None):
-        countries = session.query(Country)
-        if filter:
-            countries = countries.filter(Country.name.contains(filter))
-        self.count = countries.count()
-        print('Count:', self.count)
-        self.headers = ['Country Name', 'Country ID']
-        self.rows = [(country.name, country.id) \
-                        for country in countries.all()]
-        # return (rows, count, headers)
-
+    from data_source import get_data;
+    
     def __init__(self, parent=None):
         QAbstractTableModel.__init__(self, parent)
         # self.rows, self.count, self.headers = self.get_data()
