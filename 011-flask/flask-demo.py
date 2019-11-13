@@ -1,7 +1,9 @@
 from flask import request, url_for
 from flask_api import FlaskAPI, status, exceptions
+from flask_cors import CORS, cross_origin
 
 app = FlaskAPI(__name__)
+cors = CORS(app)
 
 teilnehmer_dict = {
     'Mark'      : {'yob': 1975, 'fav_col': 'blau', 'edu': ['vs', 'gym', 'uni']},
@@ -24,10 +26,22 @@ def welcome():
 def demo():
     return {'data': 'demo'}
 
+@app.route("/teilnehmer", methods=['GET'])
+def alle_teilnehmer():
+    ret = []
+    for name, data in teilnehmer_dict.items():
+        ret.append(
+           {'name': name, 
+            'yob' : data['yob']} )
+
+    return ret
+    
+
+
 @app.route("/teilnehmer/<string:key>", methods=['GET'])
 def teilnehmer(key):
     try:
-        return {'name': key , 'year_of_birth': teilnehmer_dict[key]['yob']}
+        return [{'name': key , 'year_of_birth': teilnehmer_dict[key]['yob']}]
     except KeyError:
         return {'error': 'nothing found'}, 404
 
